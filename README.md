@@ -1,2 +1,3 @@
 # Auction-website-clone
-Creating a auction website where you can post items for bidding and bid for items posted by others.
+I am creating an auction website where you can post items for bidding and bid on things posted by others.
+Using Django
