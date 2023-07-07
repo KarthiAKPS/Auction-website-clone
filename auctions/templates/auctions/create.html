@@ -1,0 +1,14 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+{% if message %}
+<p class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">{{message}}</p>
+{% endif %}
+
+<form action="{% url 'new' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Add</button>
+</form>
+{% endblock %}
