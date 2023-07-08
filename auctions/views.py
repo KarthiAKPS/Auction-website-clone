@@ -101,16 +101,21 @@ def list(request, t):
     o = listing.objects.get(title=t)
     inWatchlist = request.user in o.watchlist.all()
     form = BidsForm()
-    cur_item=bid.objects.get(item = o)
-    cur = cur_item.cur
-    comms = comment.objects.all()
-    print(comms)
+    try: 
+        cur_item = bid.objects.get(item = o.id)
+        curr = cur_item.cur
+        by = cur_item.buyer
+    except:
+        curr = 0
+        by = "None"
+    comms = comment.objects.filter(commented = o)
     return render(request, "auctions/listings.html", {
-        "cur" : cur,
+        "cur" : curr,
         "listings" : o,
         "watching" : inWatchlist,
         "form" : form,
-        "comms" : comms
+        "comms" : comms,
+        "by" : by
     })
 
 @login_required
@@ -125,42 +130,23 @@ def watch(request):
 def current(request, id):
     if request.method=='POST':
         cur_bid = request.POST['cur']
-        o = listing.objects.get(pk=id)
-        bid_object = bid.objects.get(id = o.id)
-        inWatchlist = request.user in o.watchlist.all()
-        form = BidsForm()
-        cur_item=bid.objects.get(item = o)
-        cur = cur_item.cur
-        by = cur_item.buyer
-        #comms = comment.objects.get(commented=o.id)
-        if float(cur_bid) > float(bid_object.cur):
+        try:
+           o = listing.objects.get(pk=id)
+           bid_object = bid.objects.get(item = o.id)
+           c =  bid_object.cur
+        except:
+            c = 0
+            o = listing.objects.get(pk=id)
+            bid_object = bid(item = o, cur = c, buyer = request.user)
+            bid_object.save()
+        if float(cur_bid) > float(c):
             bid_object.cur = cur_bid
             bid_object.item = listing.objects.get(pk = id)
             bid_object.buyer = request.user
             bid_object.save()
-      
-            cur_item=bid.objects.get(item = o)
-            cur = cur_item.cur
-            by = cur_item.buyer
-        
         else:
-            return render(request, "auctions/listings.html", {
-                "message" : "Your bid should be higher than the current bid!",
-                "cur" : cur,
-                "listings" : o,
-                "watching" : inWatchlist,
-                "form" : form,
-                "by" : by
-                #"comms" : comms
-                })
-        return render(request, "auctions/listings.html", {
-            "cur" : cur,
-            "listings" : o,
-            "watching" : inWatchlist,
-            "form" : form,
-            "by" : by
-            #"comms" : comms
-        })
+            return HttpResponseRedirect(reverse("list", args=(o.title, )))
+        return HttpResponseRedirect(reverse("list", args=(o.title, )))
 
 @login_required
 def mypage(request):
@@ -215,23 +201,7 @@ def comm(request, id):
         i = listing.objects.get(pk = id)
         o = comment(commented=i, commenter=u, comment=comments)
         o.save()
-
-        o = listing.objects.get(pk=id)
-        bid_object = bid.objects.get(id = o.id)
-        inWatchlist = request.user in o.watchlist.all()
-        form = BidsForm()
-        cur_item=bid.objects.get(item = o)
-        cur = cur_item.cur
-        by = cur_item.buyer
-        comms = comment.objects.filter(commented=o.id)
-        return render(request, "auctions/listings.html", {
-            "cur" : cur,
-            "listings" : i,
-            "watching" : inWatchlist,
-            "form" : form,
-            "by" : by,
-            "comms" : comms
-        })
+        return HttpResponseRedirect(reverse("list", args=(i.title, )))
 
 @login_required
 def add(request, id):
