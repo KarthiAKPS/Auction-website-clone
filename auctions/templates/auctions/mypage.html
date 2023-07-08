@@ -4,46 +4,39 @@
 <h2>MY ITEMS</h2>
 
     {% for item in items %}
-<ul class="list-unstyled">
-    <li class="container">
-        <a href="{% url 'list' item.title %}" method="post">
-            <div class="row">
-                {% if item.image %}
-                <div class="col-md-2">
-                    <img src="{{item.image.url}}" class="img-fluid" alt="Product Image" width="200">
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{item.title}}</h5>
-                            <p class="card-text">{{item.description}}</p>
-                            <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
-                            <p class="card-text">
-                                {% if item.isActive == True %}
-                                <strong>Active</strong>
-                                {%else%}
-                                <strong>Sold</strong>
-                                {%endif%}
-                            </p>
-                        </div>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        {% if item.image %}
+        <div class="col-md-4">
+            <img src="{{item.image.url}}" class="img-fluid rounded-start">
+        </div>
+        {% endif %}
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{item.title}}</h5>
+                <p class="card-text">{{item.description}}</p>
+                <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
+                    <div class="btn-group">
+                        <a href="{% url 'list' item.title %}" method="post" class="btn btn-primary mb-3">Go to Item</a>
+                        <form action="{% url 'mypage' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{item.id}}" name="obj_id" />
+                            <button type="submit" class="btn btn-warning mb-3">Edit</button>
+                        </form>
+                        <form action="{% url 'del' item.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{item.id}}" name="obj_id" />
+                            <button type="submit" class="btn btn-danger mb-3">Remove</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </a>
-        <form action="{% url 'mypage' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" value="{{item.id}}" name="obj_id" />
-            <button type="submit">Edit</button>
-        </form>
-        <form action="{% url 'del' item.id %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" value="{{item.id}}" name="obj_id" />
-            <button type="submit">Remove</button>
-        </form>
-    </li>
-</ul>
+        </div>
+    </div>
     {% empty %}
+<hr />
 <h4> No items </h4>
+<hr />
     {% endfor %}
 {% endblock %}

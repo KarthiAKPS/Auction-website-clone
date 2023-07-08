@@ -3,37 +3,34 @@
 {% block body %}
 <h2>My Watchlist Items</h2>
 
-    {% for item in items %}
-<ul class="list-unstyled">
-    <li class="container">
-        <a href="{% url 'list' item.title %}" method="post">
-            <div class="row">
-                {% if item.image %}
-                <div class="col-md-2">
-                    <img src="{{item.image.url}}" class="img-fluid" alt="Product Image" width="200">
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{item.title}}</h5>
-                            <p class="card-text">{{item.description}}</p>
-                            <p class="card-text"><strong>Org. Price: </strong>Rs.{{item.price}}</p>
-                            <p class="card-text">
-                                {% if item.isActive == True %}
-                                <strong>Active</strong>
-                                {%else%}
-                                <strong>Sold</strong>
-                                {%endif%}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+
+{% for item in items %}
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        {% if item.image %}
+        <div class="col-md-4">
+            <img src="{{item.image.url}}" class="img-fluid rounded-start">
+        </div>
+        {% endif %}
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{item.title}}</h5>
+                <p class="card-text">{{item.description}}</p>
+                <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
+                <p class="card-text">
+                    {% if item.isActive == True %}
+                    <strong>Active</strong>
+                    {%else%}
+                    <strong>Sold</strong>
+                    {%endif%}</p>
+                <a href="{% url 'list' item.title %}" method="post" class="btn btn-primary">Go to Item</a>
             </div>
-        </a>
-    </li>
-</ul>
+        </div>
+    </div>
+</div>
     {% empty %}
-<h4> No items </h4>
+<hr />
+    <h4> No items </h4>
+<hr />
     {% endfor %}
 {% endblock %}

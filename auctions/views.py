@@ -98,18 +98,18 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def list(request, t):
-    o = listing.objects.get(title=t)
+    o = listing.objects.get(title = t)
     inWatchlist = request.user in o.watchlist.all()
     form = BidsForm()
     u = request.user
     owner = o.posted_user
     try: 
-        cur_item = bid.objects.get(item = o.id)
+        cur_item = bid.objects.filter(item = o.id).last()
         curr = cur_item.cur
         by = cur_item.buyer
     except:
         curr = 0
-        by = "None"
+        by = None
     comms = comment.objects.filter(commented = o)
     return render(request, "auctions/listings.html", {
         "cur" : curr,
@@ -138,19 +138,17 @@ def current(request, id):
         u = request.user
         o = listing.objects.get(pk=id)
         try:
-           o = listing.objects.get(pk=id)
-           bid_object = bid.objects.get(item = o.id)
+           bid_object = bid.objects.filter(item = id).last()
            c =  bid_object.cur
-           d = bid.object.buyer
+           d = bid_object.buyer
         except:
-            o = listing.objects.get(pk=id)
-            c = o.price
+            c = 0
             d = None
-            bid_object = bid(item = o, cur = c, buyer = request.user)
+            bid_object = bid(item = o, cur = c, buyer = None, prevbuyer = None, prevbid = 0)
             bid_object.save()
         inWatchlist = request.user in o.watchlist.all()
         comms = comment.objects.filter(commented = o)
-        if float(cur_bid) > float(c):
+        if float(cur_bid) > float(c) and float(cur_bid) > float(o.price):
             bid_object.prevbid = c
             bid_object.prevbuyer = d
             bid_object.cur = cur_bid
@@ -260,7 +258,7 @@ def sell(request, id):
     o.save()
     comms = comment.objects.filter(commented = o)
     try: 
-        cur_item = bid.objects.get(item = o.id)
+        cur_item = bid.objects.filter(item = id).last()
         curr = cur_item.cur
         by = cur_item.buyer
     except:
@@ -293,7 +291,7 @@ def solditems(request):
 
 def removebid(request, id):
     o = listing.objects.get(pk = id)
-    a = bid.objects.filter(item = id).first()
+    a = bid.objects.filter(item = id).last()
     a.cur = a.prevbid
     a.buyer = a.prevbuyer
     a.save()
