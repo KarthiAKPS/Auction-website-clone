@@ -3,6 +3,16 @@
 {% block body %}
     <h2>Active Listings</h2>
 
+    <form return="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <select name="category">
+            {% for c in cat %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">search</button>
+    </form>
+
     {% for item in items %}
     <ul class="list-unstyled">
         <li class="container">

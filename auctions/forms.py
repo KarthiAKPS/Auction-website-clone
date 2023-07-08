@@ -31,8 +31,3 @@ class BidsForm(ModelForm):
     class Meta:
         model = bid
         fields = ("cur",)
-
-class CommentForm(ModelForm):
-    class Meta:
-        model = comment
-        fields = "__all__"

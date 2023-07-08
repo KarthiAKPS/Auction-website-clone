@@ -1,0 +1,58 @@
+{% extends 'auctions/layout.html' %}
+
+{%block body %}
+
+{% if message %}
+<h4>{{message}}</h4>
+{% endif %}
+
+{% if image %}
+<img src="{{listings.image.url}}" />
+{% endif %}
+
+<div><h4>{{listings.title}}</h4></div>
+<div>{{listings.description}}</div>
+<div>{{listings.price}}</div>
+<div><p>Current Bid </p>{{cur}}<p> by {{by}}</p></div>
+
+{% if user.is_authenticated %}
+<form action="{% url 'bid' listings.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="bid" />
+</form>
+{%endif%}
+
+{% if category %}
+<div>{{listings.category}}</div>
+{% endif %}
+
+{% if user.is_authenticated %}
+<form action="{% url 'com' listings.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="comment" placeholder="leave a comment here" />
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+{% endif %}
+
+{% for comm in comms %}
+<p>{{comm}}</p>
+{% empty %}
+No comments
+{% endfor %}
+
+{% if user.is_authenticated %}
+{% if watching %}
+<form action="{% url 'remove' listings.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Remove From Watchlist" />
+</form>
+{% else %}
+<form action="{% url 'add' listings.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="Add to Watchlist" />
+</form>
+{%endif%}
+{%endif%}
+
+{% endblock %}

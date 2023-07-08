@@ -1,0 +1,47 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+<h2>MY ITEMS</h2>
+
+    {% for item in items %}
+<ul class="list-unstyled">
+    <li class="container">
+        <div class="row">
+            {% if item.image %}
+            <div class="col-md-2">
+                <img src="{{item.image.url}}" class="img-fluid" alt="Product Image" width="200">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <p class="card-text">{{item.description}}</p>
+                        <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
+                        <p class="card-text">
+                            {% if item.isActive == True %}
+                            <strong>Active</strong>
+                            {%else%}
+                            <strong>Sold</strong>
+                            {%endif%}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <form action="{% url 'mypage' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{item.id}}" name="obj_id" />
+                <button type="submit">Edit</button>
+            </form>
+            <form action="{% url 'del' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{item.id}}" name="obj_id" />
+                <button type="submit">Remove</button>
+            </form>
+        </div>
+    </li>
+</ul>
+    {% empty %}
+<h4> No items </h4>
+    {% endfor %}
+{% endblock %}
