@@ -27,6 +27,8 @@ class bid(models.Model):
     item = models.ForeignKey(listing, related_name="item", on_delete=models.CASCADE, null=True)
     cur = models.IntegerField(default=0)
     buyer = models.ForeignKey(User, related_name="buyer", on_delete=models.CASCADE, null=True)
+    prevbuyer = models.ForeignKey(User, related_name="prevbuyer", on_delete=models.CASCADE, null=True)
+    prevbid = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.item}: {self.cur} by {self.buyer}"

@@ -138,15 +138,21 @@ def current(request, id):
         u = request.user
         o = listing.objects.get(pk=id)
         try:
+           o = listing.objects.get(pk=id)
            bid_object = bid.objects.get(item = o.id)
            c =  bid_object.cur
+           d = bid.object.buyer
         except:
+            o = listing.objects.get(pk=id)
             c = 0
+            d = None
             bid_object = bid(item = o, cur = c, buyer = request.user)
             bid_object.save()
         inWatchlist = request.user in o.watchlist.all()
         comms = comment.objects.filter(commented = o)
         if float(cur_bid) > float(c):
+            bid_object.prevbid = c
+            bid_object.prevbuyer = d
             bid_object.cur = cur_bid
             bid_object.item = listing.objects.get(pk = id)
             bid_object.buyer = request.user
@@ -284,6 +290,14 @@ def solditems(request):
             "items" : items,
             "cat" : cat,
         })
+
+def removebid(request, id):
+    o = listing.objects.get(pk = id)
+    a = bid.objects.filter(item = id).first()
+    a.cur = a.prevbid
+    a.buyer = a.prevbuyer
+    a.save()
+    return HttpResponseRedirect(reverse("list", args=(o.title, )))
 
 
 
