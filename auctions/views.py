@@ -144,7 +144,7 @@ def current(request, id):
            d = bid.object.buyer
         except:
             o = listing.objects.get(pk=id)
-            c = 0
+            c = o.price
             d = None
             bid_object = bid(item = o, cur = c, buyer = request.user)
             bid_object.save()
