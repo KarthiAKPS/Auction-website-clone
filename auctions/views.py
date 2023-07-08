@@ -267,5 +267,23 @@ def sell(request, id):
         "by" : by,
         })
 
+def solditems(request):
+    if request.method == "POST":
+        cat = request.POST["category"]
+        c = Category.objects.get(category=cat)
+        all_cat = Category.objects.all()
+        items = listing.objects.filter(isActive=False, category=c)
+        return render(request, 'auctions/solditems.html', {
+            "items" : items,
+            "cat" : all_cat
+            })
+    else:
+        items = listing.objects.filter(isActive=False)
+        cat = Category.objects.all()
+        return render(request, "auctions/solditems.html", {
+            "items" : items,
+            "cat" : cat,
+        })
+
 
 
