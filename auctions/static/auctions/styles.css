@@ -1,3 +1,21 @@
 body {
     padding: 10px;
 }
+
+#scroll-bg {
+    background : rgb(0, 148, 255);
+    width : 400px;
+    margin : 10% auto;
+}
+
+#scroll-div{
+    background : rgb(0, 148, 255);
+    width : 400px;
+    height : 300px;
+    overflow : hidden;
+    overflow-y : scroll;
+}
+
+#scroll-obj{
+    color : aliceblue;
+}

@@ -1,58 +1,93 @@
 {% extends 'auctions/layout.html' %}
 
 {%block body %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if user.is_authenticated and listings.isActive%}
+            {% if watching %}
+            <form action="{% url 'remove' listings.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Remove From Watchlist" />
+            </form>
+            {% else %}
+            <form action="{% url 'add' listings.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-success" value="Add to Watchlist" />
+            </form>
+            {%endif%}
+            {% if owner == u %}
+            <form action="{% url 'sell' listings.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-warning" value="End Auction" />
+            </form>
+            {% endif %}
+            {% endif %}
 
-{% if message %}
-<h4>{{message}}</h4>
-{% endif %}
+            {% if pass %}
+            {% if message %}
+            <div class="alert alert-success" role="alert">{{message}}</div>
+            {% endif %}
+            {% else %}
+            {% if message %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+            {% endif %}
+            {% endif %}
 
-{% if image %}
-<img src="{{listings.image.url}}" />
-{% endif %}
+            {% if image %}
+            <img src="{{listings.image.url}}" />
+            {% endif %}
 
-<div><h4>{{listings.title}}</h4></div>
-<div>{{listings.description}}</div>
-<div>{{listings.price}}</div>
-<div><p>Current Bid </p>{{cur}}<p> by {{by}}</p></div>
+            <div><h4>{{listings.title}}</h4></div>
+            <div>{{listings.description}}</div>
+            <div>Original Price : <strong>Rs.{{listings.price}}</strong></div>
+            {% if listings.isActive == False and u == by %}<strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>{% else %}
+            {%if listings.isActive%}<div><p>Current Bid is <strong>Rs.{{cur}}</strong> by <strong>{% if u == by %}you{% else %}{{by}}{% endif %}</strong></p></div>
+            {% else %}<p>Sold to <strong>{{by}}</strong> for <strong>Rs.{{cur}}</strong></p>{% endif %}{% endif %}
+            
 
-{% if user.is_authenticated %}
-<form action="{% url 'bid' listings.id %}" method="post">
+            {% if user.is_authenticated %}
+            {% if u != owner and listings.isActive %}
+            <form action="{% url 'bid' listings.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="bid" class="btn btn-success" />
+            </form>
+            {% endif %}
+            {%endif%}
+
+            {% if category %}
+            <div>{{listings.category}}</div>
+            {% endif %}
+        </div>
+
+<div class="col">
+    {% if user.is_authenticated %}
+<form class="input-group" action="{% url 'com' listings.id %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="bid" />
+    <div class="col-sm-5">
+        <textarea class="form-control" aria-label="Comment:" name="comment" placeholder="leave a comment here"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
 </form>
-{%endif%}
+    {% endif %}
 
-{% if category %}
-<div>{{listings.category}}</div>
-{% endif %}
+<hr />
 
-{% if user.is_authenticated %}
-<form action="{% url 'com' listings.id %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="comment" placeholder="leave a comment here" />
-    <input type="submit" value="Submit" class="btn btn-primary" />
-</form>
-{% endif %}
-
-{% for comm in comms %}
-<p>{{comm}}</p>
-{% empty %}
-No comments
-{% endfor %}
-
-{% if user.is_authenticated %}
-{% if watching %}
-<form action="{% url 'remove' listings.id %}" method="post">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-danger" value="Remove From Watchlist" />
-</form>
-{% else %}
-<form action="{% url 'add' listings.id %}" method="post">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-success" value="Add to Watchlist" />
-</form>
-{%endif%}
-{%endif%}
-
+<div id="scroll-bg">
+    <div id="scroll-div">
+        <div id="scroll-obj">
+            {% for comm in comms %}
+            <ul class="list-unstyled">
+                <li class="list-group-items">{{comm}}<hr /></li>
+                {% empty %}
+                No comments
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+</div>
 {% endblock %}

@@ -31,3 +31,9 @@ class BidsForm(ModelForm):
     class Meta:
         model = bid
         fields = ("cur",)
+        widgets={
+            'cur' : forms.NumberInput(attrs={'class':'form-control', "width":'50'}),
+            }
+        labels={
+            'cur':'Place your Bid',
+            }
