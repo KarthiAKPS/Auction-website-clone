@@ -4,6 +4,11 @@ from .models import listing, bid, comment, Category
 
 
 class ListingForm(ModelForm):
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.values_list('category', flat=True),
+        label='Category',
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     class Meta:
         model = listing
         fields = ('title', 'description', 'price', 'category', 'image')
@@ -11,7 +16,6 @@ class ListingForm(ModelForm):
             'title' : forms.TextInput(attrs={'class':'form-control'}),
             'description' : forms.TextInput(attrs={'class':'form-control'}),
             'price' : forms.NumberInput(attrs={'class':'form-control'}),
-            'category' : forms.TextInput(attrs={'class':'form-control'}),
             'image' : forms.FileInput(attrs={'width':'100'})
             }
         labels={
