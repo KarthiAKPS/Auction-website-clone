@@ -27,6 +27,17 @@ def index(request):
             "cat" : cat
         })
 
+def index_cat(request):
+    if request.method == "POST":
+        cat = request.POST["category"]
+        c = Category.objects.get(category=cat)
+        all_cat = Category.objects.all()
+        items = listing.objects.filter(isActive=False, category=c)
+        return render(request, 'auctions/index.html', {
+            "items" : items,
+            "cat" : all_cat
+            })
+
 @login_required
 def create(request):
     if request.method=="POST":
@@ -185,7 +196,9 @@ def mypage(request):
     if request.method=="POST":
         obj = request.POST['obj_id']
         o = listing.objects.get(id=obj)
+        oc = o.category
         cat = Category.objects.all()
+        c = Category.objects.get(id = oc.id)
         return render(request, "auctions/edit.html", {
             "id" : o.id,
             "title" : o.title,
@@ -193,6 +206,7 @@ def mypage(request):
             "price" : o.price,
             "categories" : cat,
             "image" : o.image,
+            "oc" : oc
         })
 
     else:
@@ -210,7 +224,7 @@ def edit(request, id):
        description = request.POST['description']
        price = request.POST['price']
        category = request.POST['category']
-       img = request.POST['image']
+       img = request.FILES['image']
        o = listing.objects.get(pk = id)
        o.title = title
        o.description = description

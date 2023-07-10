@@ -8,12 +8,12 @@
 
 <form action="{% url 'edit' id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <label>Title</label><input type="text" name="title" value="{{title}}" required />
-    <label>Description</label><input type="text" name="description" value="{{description}}" required />
-    <label>Price</label><input type="number" name="price" value="{{price}}" required />
-    <label>Category</label><select name="category">{% for i in categories %} <option value="{{i}}">{{i}}</option>{% endfor %}</select>
-    <label>image</label><input type="file" name="image" value="{{image}}" />
+    <label>Title</label><input type="text" name="title" value="{{title}}" required class=" form-control" />
+    <label>Description</label><input type="text" name="description" value="{{description}}" required class=" form-control" />
+    <label>Price</label><input type="number" name="price" value="{{price}}" required class=" form-control" />
+    <label>Category</label><select class=" form-control" name="category"><option selected>{{oc}}</option>{% for i in categories %} <option value="{{i}}">{{i}}</option>{% endfor %} </select>
+    <label>image</label><input type="file" name="image" value="{{image}}" class=" form-control-file" />
 
-    <button type="submit">Submit</button>
+    <button type="submit" style="margin : 10px 0" class="btn btn-warning mb-3">Submit</button>
 </form>
 {% endblock %}
