@@ -5,6 +5,6 @@
     "\\auctions\\templates",
     "\\auctions\\templates\\auctions"
   ],
-  "SelectedNode": "\\auctions\\models.py",
+  "SelectedNode": "\\auctions\\views.py",
   "PreviewInSolutionExplorer": false
 }
