@@ -6,7 +6,8 @@ class User(AbstractUser):
     pass
 
 class Category(models.Model):
-    category = models.CharField(max_length=20, blank=True, null=True)
+    CHOICES = [('others','others'), ('Books','Books'), ('Art','Art'), ('Electronics','Electronics'), ('Fashon','Fashon'), ('Appliances','Appliances')]
+    category = models.CharField(max_length=20, blank=True, null=True, choices=CHOICES)
     def __str__(self):
         return self.category
 

@@ -42,11 +42,12 @@
                 <h5 class="card-title">{{listings.title}}</h5>
                 <p class="card-text">{{listings.description}}</p>
                 <p>Original Price : <strong>Rs.{{listings.price}}</strong></p>
+                <p class="card-text">Posted by : {{listings.posted_user}}</p>
                 {% if listings.isActive == False and u == by %}<p>
-                <strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>
+                    <strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>
                 </p>{% else %}
-                    {%if listings.isActive%}<div><p>Current Bid is <strong>Rs.{{cur}}</strong> by <strong>{% if u == by %}you{% else %}{{by}}{% endif %}</strong></p></div>
-                    {% else %}
+                {%if listings.isActive%}<div><p>Current Bid is <strong>Rs.{{cur}}</strong> by <strong>{% if u == by %}you{% else %}{{by}}{% endif %}</strong></p></div>
+                {% else %}
                 <p>Sold to <strong>{{by}}</strong> for <strong>Rs.{{cur}}</strong></p>{% endif %}{% endif %}
             </div>
         </div>

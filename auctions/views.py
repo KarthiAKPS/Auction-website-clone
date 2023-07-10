@@ -32,14 +32,15 @@ def create(request):
     if request.method=="POST":
         form = ListingForm(request.POST, request.FILES)
         if form.is_valid():
-            form.posted_user = request.user.id
-            form.save()
+            listy = form.save(commit=False)
+            listy.posted_user = request.user
+            listy.save()
+            return HttpResponseRedirect( reverse("index"))
         else:
             return render(request, "auctions/create.html", {
                 "form": form,
                 "message": "Enter valid details"
                 })
-        return HttpResponseRedirect( reverse("index"))
     else:
         form = ListingForm()
         return render(request, "auctions/create.html", {
