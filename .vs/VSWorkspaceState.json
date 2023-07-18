@@ -2,6 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\auctions",
+    "\\auctions\\static",
+    "\\auctions\\static\\auctions",
     "\\auctions\\templates",
     "\\auctions\\templates\\auctions"
   ],

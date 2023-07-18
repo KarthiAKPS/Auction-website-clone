@@ -3,7 +3,7 @@
 {% block body %}
 <h2>SOLD ITEMS</h2>
 
-<form return="{% url 'index' %}" method="post">
+<form return="{% url 'index_cat' %}" method="post">
     {% csrf_token %}
     <select name="category" class="form-select form-select-lg mb-4" aria-label=".form-select-lg example">
         <option selected>Select Category</option>
