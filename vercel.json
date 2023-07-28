@@ -14,5 +14,14 @@
       "src": "/(.*)",
       "dest": "commerce/wsgi.py"
     }
+  ],
+  "database": [
+    {
+      "host": "ep-purple-leaf-05979205-pooler.ap-southeast-1.postgres.vercel-storage.com",
+      "port": 5432,
+      "database": "verceldb",
+      "username": "default",
+      "password": "Why4YV8irqfN"
+    }
   ]
 }
