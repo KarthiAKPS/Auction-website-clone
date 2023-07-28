@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\auctions",
     "\\auctions\\templates",
-    "\\auctions\\templates\\auctions",
     "\\commerce"
   ],
-  "SelectedNode": "\\requirements.txt",
   "PreviewInSolutionExplorer": false
 }
