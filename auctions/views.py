@@ -247,7 +247,7 @@ def comm(request, id):
         i = listing.objects.get(pk = id)
         o = comment(commented=i, commenter=u, comment=comments)
         o.save()
-        return HttpResponseRedirect(reverse("list", args=(i.title, )))
+        return HttpResponseRedirect(reverse("list", args=(i.id, )))
 
 @login_required
 def add(request, id):
@@ -256,7 +256,7 @@ def add(request, id):
         o = listing.objects.get(pk = id)
         o.watchlist.add(user)
         o.save()
-        return HttpResponseRedirect(reverse("list", args=(o.title, )))
+        return HttpResponseRedirect(reverse("list", args=(o.id, )))
 
 @login_required
 def remove(request, id):
@@ -265,7 +265,7 @@ def remove(request, id):
         o = listing.objects.get(pk = id)
         o.watchlist.remove(user)
         o.save()
-        return HttpResponseRedirect(reverse("list", args=(o.title, )))
+        return HttpResponseRedirect(reverse("list", args=(o.id, )))
 
 def sell(request, id):
     o = listing.objects.get(pk = id)
@@ -310,7 +310,7 @@ def removebid(request, id):
     a.cur = a.prevbid
     a.buyer = a.prevbuyer
     a.save()
-    return HttpResponseRedirect(reverse("list", args=(o.title, )))
+    return HttpResponseRedirect(reverse("list", args=(o.id, )))
 
 
 
