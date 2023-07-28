@@ -81,6 +81,8 @@ DATABASES = {
     }
 }
 
+DATABASES['default']['deterministic'] = False
+
 AUTH_USER_MODEL = 'auctions.User'
 
 # Password validation
