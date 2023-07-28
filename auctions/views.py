@@ -109,8 +109,8 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-def list(request, t):
-    o = listing.objects.get(title = t)
+def list(request, id):
+    o = listing.objects.get(pk = id)
     inWatchlist = request.user in o.watchlist.all()
     form = BidsForm()
     u = request.user
