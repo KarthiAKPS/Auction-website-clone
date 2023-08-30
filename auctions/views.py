@@ -224,13 +224,16 @@ def edit(request, id):
        description = request.POST['description']
        price = request.POST['price']
        category = request.POST['category']
-       img = request.FILES['image']
        o = listing.objects.get(pk = id)
+       try:
+           img = request.FILES['image']
+           o.image = img
+       except:
+           pass
        o.title = title
        o.description = description
        o.price = price
        o.category = Category.objects.get(category=category)
-       o.image = img
        o.save()
        return HttpResponseRedirect(reverse('mypage'))
 
