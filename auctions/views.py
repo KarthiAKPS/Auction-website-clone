@@ -198,7 +198,6 @@ def mypage(request):
         o = listing.objects.get(id=obj)
         oc = o.category
         cat = Category.objects.all()
-        c = Category.objects.get(id = oc.id)
         return render(request, "auctions/edit.html", {
             "id" : o.id,
             "title" : o.title,
