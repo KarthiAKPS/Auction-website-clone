@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\auctions",
+    "\\auctions\\static",
     "\\auctions\\templates",
+    "\\auctions\\templates\\auctions",
     "\\commerce"
   ],
+  "SelectedNode": "\\manage.py",
   "PreviewInSolutionExplorer": false
 }
