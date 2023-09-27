@@ -27,7 +27,7 @@
                     <h5 class="card-title">{{item.title}}</h5>
                     <p class="card-text">{{item.description}}</p>
                     <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
-                    <a href="{% url 'list' item.title %}" method="post" class="btn btn-primary">Go to Item</a>
+                    <a href="{% url 'list' item.id %}" method="post" class="btn btn-primary">Go to Item</a>
                 </div>
             </div>
         </div>
