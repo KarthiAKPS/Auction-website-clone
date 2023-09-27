@@ -23,7 +23,7 @@
                     {%else%}
                     <strong>Sold</strong>
                     {%endif%}</p>
-                <a href="{% url 'list' item.title %}" method="post" class="btn btn-primary">Go to Item</a>
+                <a href="{% url 'list' item.id %}" method="post" class="btn btn-primary">Go to Item</a>
             </div>
         </div>
     </div>
