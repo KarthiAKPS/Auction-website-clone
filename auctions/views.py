@@ -4,17 +4,19 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
 from .models import User, listing, bid, comment, Category
-from .forms import ListingForm, BidsForm, CategoryForm
+from .forms import ListingForm, BidsForm
 
 
 def index(request):
     if request.method == "POST":
         cat = request.POST["category"]
-        c = Category.objects.get(category=cat)
+        if cat != 'all':
+            c = Category.objects.get(category=cat)
+            items = listing.objects.filter(isActive=True, category=c)
+        else:
+            items = listing.objects.filter(isActive=True)
         all_cat = Category.objects.all()
-        items = listing.objects.filter(isActive=True, category=c)
         return render(request, 'auctions/index.html', {
             "items" : items,
             "cat" : all_cat
@@ -77,11 +79,9 @@ def login_view(request):
     else:
         return render(request, "auctions/login.html")
 
-
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
-
 
 def register(request):
     if request.method == "POST":
@@ -313,6 +313,3 @@ def removebid(request, id):
     a.buyer = a.prevbuyer
     a.save()
     return HttpResponseRedirect(reverse("list", args=(o.id, )))
-
-
-

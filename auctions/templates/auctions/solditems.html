@@ -1,39 +1,50 @@
-{% extends 'auctions/layout.html' %}
+{% extends 'auctions/layout.html' %} {% block body %}
+<h2 class="flex-container heading">Sold Items</h2>
 
-{% block body %}
-<h2>SOLD ITEMS</h2>
-
-<form return="{% url 'index_cat' %}" method="post">
+<div class="item-select cat-search">
+  <form return="{% url 'index_cat' %}" method="post">
     {% csrf_token %}
-    <select name="category" class="form-select form-select-lg mb-4" aria-label=".form-select-lg example">
+    <div class="flex-container category">
+      <select name="category" class="cat-item form-select">
+        <option value="all" selected>All</option>
         {% for c in cat %}
         <option value="{{c}}">{{c}}</option>
         {% endfor %}
-    </select>
-    <button type="submit" class="btn btn-primary">search</button>
-</form>
-
-  {% for item in items %}
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            {% if item.image %}
-            <div class="col-md-4">
-                <img src="{{item.image.url}}" class="img-fluid rounded-start">
-            </div>
-            {% endif %}
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{item.title}}</h5>
-                    <p class="card-text">{{item.description}}</p>
-                    <p class="card-text"><strong>Price: </strong>Rs.{{item.price}}</p>
-                    <a href="{% url 'list' item.id %}" method="post" class="btn btn-primary">Go to Item</a>
-                </div>
-            </div>
-        </div>
+      </select>
+      <button class="cat-item search">search</button>
     </div>
-    {% empty %}
-<hr />
-    <h4> No items </h4>
-<hr />
-    {% endfor %}
+  </form>
+</div>
+
+<div class="flex-container listing">
+  {% for item in items %}
+  <div class="content">
+    <a class="listing-link" href="{% url 'list' item.id %}" method="post">
+      <div class="flex-container contents">
+        {% if item.image %}
+        <div class="flex-item image">
+          <img src="{{item.image.url}}" class="img-fluid rounded-start" />
+        </div>
+        {% else %}
+        <div class="flex-item image">
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+            class="img"
+          />
+        </div>
+        {% endif %}
+        <div class="flex-item desc">
+          <h5 class="card-title">{{item.title}}</h5>
+          <p class="card-text description">{{item.description}}</p>
+          <p class="card-text price"><strong>Price: </strong>Rs.{{item.price}}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <div class="flex-container heading no-items">
+    <h4 class="no-item">No items</h4>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

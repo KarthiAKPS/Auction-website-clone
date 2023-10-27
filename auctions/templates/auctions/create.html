@@ -1,14 +1,19 @@
-{% extends 'auctions/layout.html' %}
-
-{% block body %}
-
-{% if message %}
-<p class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">{{message}}</p>
+{% extends 'auctions/layout.html' %} {% block body %} {% if message %}
+<p class="msg">{{message}}</p>
 {% endif %}
 
 <form action="{% url 'new' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-success">Add</button>
+  {% csrf_token %}
+  <div class="container-box">
+    <div class="flex-container create">
+      {% for field in form %} {% if field.label != 'Posted user' %}
+      <label for="{{field.id_for_label}}">{{field.label}}</label>
+      <div class="form-group">{{field}} </div>{% endif %}
+      {% endfor %}
+      <div class="form-group">
+        <button>Add</button>
+      </div>
+    </div>
+  </div>
 </form>
 {% endblock %}

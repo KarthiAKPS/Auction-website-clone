@@ -1,107 +1,123 @@
 {% extends 'auctions/layout.html' %}
 
-{%block body %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            {% if user.is_authenticated and listings.isActive%}
-            {% if watching %}
-            <form action="{% url 'remove' listings.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-danger mb-3" value="Remove From Watchlist" />
-            </form>
-            {% else %}
-            <form action="{% url 'add' listings.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-success mb-3" value="Add to Watchlist" />
-            </form>
-            {%endif%}
-            {% if owner == u %}
-            <form action="{% url 'sell' listings.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-warning mb-3" value="End Auction" />
-            </form>
-            {% endif %}
-            {% endif %}
+{% block body %}
+<div class="flex-container wrap row">
+  <div class="flex-container col row-1">
+    {% if user.is_authenticated and listings.isActive %}
+    <div class="flex-container col col-1">
+      {% if watching %}
+      <form action="{% url 'remove' listings.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn danger" value="Remove From Watchlist" />
+      </form>
+      {% else %}
+      <form action="{% url 'add' listings.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn success" value="Add to Watchlist" />
+      </form>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if owner == u %}
+    <div class="flex-container col col-1">
+      <form action="{% url 'sell' listings.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-warning mb-3" value="End Auction" />
+      </form>
+    </div>
+    {% endif %}
+    <div class="flex-container col col-1 mid">
+      {% if pass %}
+        {% if message %}
+          <div class="alert alert-success" role="alert">{{message}}</div>
+        {% endif %}
+      {% else %}
+        {% if message %}
+          <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endif %}
+      {% endif %}
+    </div>
 
-            {% if pass %}
-            {% if message %}
-            <div class="alert alert-success mb-3" role="alert">{{message}}</div>
-            {% endif %}
-            {% else %}
-            {% if message %}
-            <div class="alert alert-danger mb-3" role="alert">{{message}}</div>
-            {% endif %}
-            {% endif %}
+    {% if listings.image %}
+      <div class="flex-container col col-2">
+        <img src="{{listings.image.url}}" class="img" />
+      </div>
+    {% endif %}
+    <div class="flex-container col col-3">
+      <h5 class="card-title">{{listings.title}}</h5>
+      <p class="card-text description">{{listings.description}}</p>
+      <p class="card-text price">
+        Original Price: <strong>Rs.{{listings.price}}</strong>
+      </p>
+      <p class="card-text description">Posted by: {{listings.posted_user}}</p>
+    </div>
 
-        <div class="card mb-3">
-            {% if listings.image %}
-            <img src="{{listings.image.url}}" class="card-img-top">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{listings.title}}</h5>
-                <p class="card-text">{{listings.description}}</p>
-                <p>Original Price : <strong>Rs.{{listings.price}}</strong></p>
-                <p class="card-text">Posted by : {{listings.posted_user}}</p>
-                {% if listings.isActive == False and u == by %}<p>
-                    <strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>
-                </p>{% else %}
-                {%if listings.isActive%}<div><p>Current Bid is <strong>Rs.{{cur}}</strong> by <strong>{% if u == by %}you{% else %}{{by}}{% endif %}</strong></p></div>
-                {% else %}
-                <p>Sold to <strong>{{by}}</strong> for <strong>Rs.{{cur}}</strong></p>{% endif %}{% endif %}
-            </div>
-        </div>
-
-            {% if user.is_authenticated %}
+    {% if listings.isActive == False and u == by %}
+      <p class="flex-container col winning-alert">
+        <strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>
+      </p>
+    {% else %}
+      {% if listings.isActive %}
+        <div class="flex-container col col-4">
+          <p>
+            Current Bid is <strong>Rs.{{cur}}</strong> by 
+            {% if u == by %}<strong>you</strong>{% else %}<strong>{{by}}</strong>{% endif %}
+          </p>
+          {% if user.is_authenticated %}
             {% if u != owner and listings.isActive and u != by %}
-            <form action="{% url 'bid' listings.id %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                {% if u != by %}
+              <form action="{% url 'bid' listings.id %}" method="post">
+                {% csrf_token %} {{ form.as_p }}
                 <input type="submit" value="Bid" class="btn btn-success" />
-                {% endif %}
-            </form>
+              </form>
             {% endif %}
             {% if u != owner and listings.isActive and u == by %}
-            <form method="post" action="{% url 'removebid' listings.id %}">
+              <form method="post" action="{% url 'removebid' listings.id %}">
                 {% csrf_token %}
-                <input type="submit" value="Remove Bid" class="btn btn-danger">
-            </form>
+                <input type="submit" value="Remove Bid" class="btn btn-danger" />
+              </form>
             {% endif %}
-            {% endif %}
-
-            {% if category %}
-            <div>{{listings.category}}</div>
-            {% endif %}
+          {% endif %}
         </div>
-
-<div class="col">
-    {% if user.is_authenticated %}
-<form class="input-group" action="{% url 'com' listings.id %}" method="post">
-    {% csrf_token %}
-    <div class="col-sm-5">
-        <textarea class="form-control" aria-label="Comment:" name="comment" placeholder="leave a comment here"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary mb-3">Submit</button>
-</form>
+      {% else %}
+        <p class="flex-container col sold-alert">
+          Sold to <strong>{{by}}</strong> for <strong>Rs.{{cur}}</strong>
+        </p>
+      {% endif %}
     {% endif %}
+  </div>
 
-<hr />
-
-<div id="scroll-bg">
-    <div id="scroll-div">
-        <div id="scroll-obj">
-            {% for comm in comms %}
-            <ul class="list-unstyled">
-                <li class="list-group-items">{{comm}}<hr /></li>
-                {% empty %}
-                No comments
+  <div class="flex-container col row-2">
+    {% if user.is_authenticated %}
+      <div class="flex-container col col-1">
+        <form class="input-group" action="{% url 'com' listings.id %}" method="post">
+          {% csrf_token %}
+          <textarea class="form-group text-box" aria-label="Comment:" name="comment" placeholder="leave a comment here"></textarea>
+          <div class="form-group">
+            <button>Submit</button>
+          </div>
+        </form>
+      </div>
+    {% endif %}
+    <div class="flex-container col col-2">
+      <div id="scroll-bg">
+        <div id="scroll-div">
+          <div id="scroll-obj">
+            <ul class="comments">
+              {% for comm in comms %}
+                <li class="comment">
+                  {{comm}}
+                  <hr />
+                </li>
+              {% empty %}
+                <div class="flex-container heading no-items">
+                  <h4 class="no-item">No comments</h4>
+                </div>
+              {% endfor %}
             </ul>
-            {% endfor %}
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-    </div>
+  </div>
 </div>
 {% endblock %}

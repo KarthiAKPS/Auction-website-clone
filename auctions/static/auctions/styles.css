@@ -1,19 +1,351 @@
+
+:root {
+    --foreground-color: hsl(0, 0%, 95%);
+    --text-light: 10%;
+    --background-color: hsla(0, 0%, 100%, 1);
+    --button-background-color: hsla(220, 69%, 50%, 1);
+    --hov-button-color: hsla(177, 72%, 35%, 1);
+    --link-color: hsl(200, 100%, 50%);
+    --button-color: hsl(0, 0%, 100%);
+    --text-transparency : 1;
+}
+
+html {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
 body {
-    padding: 10px;
+    margin: 0;
+    border: 0;
+}
+
+#light-button {
+    display: none;
+}
+
+#bground {
+    background-color: var(--background-color);
+    --text-hue: 100;
+    --text-saturation: 0%;
+    color: hsla(var(--text-hue), var(--text-saturation), var(--text-light), var(--text-transparency));
+}
+
+.light {
+    --foreground-color: hsl(0, 0%, 95%);
+    --text-light: 10%;
+    --background-color: hsla(0, 0%, 100%, 1);
+    --link-color: hsla(200, 100%, 50%, 1);
+    --button-background-color: hsla(220, 70%, 50%, 1);
+    --hov-button-color: hsla(177, 72%, 35%, 1);
+    --button-color: hsl(0, 0%, 100%);
+    --button-color-opp: hsl(0, 0%, 0%);
+}
+
+.dark {
+    --foreground-color: hsl(0, 0%, 20%);
+    --text-light: 100%;
+    --background-color: hsla(0, 0%, 0%, 1);
+    --link-color: hsl(160, 100%, 75%);
+    --button-background-color: hsla(180, 100%, 50%, 1);
+    --hov-button-color: hsla(160, 100%, 75%, 1);
+    --button-color: hsl(0, 0%, 0%);
+    --button-color-opp: hsl(0, 0%, 100%);
 }
 
 #scroll-bg {
-    background : rgb(255, 255, 255);
-    margin : 2% auto;
+    background: var(--background-color);
+    margin: 2% auto;
 }
 
-#scroll-div{
-    background : rgb(255, 255, 255);
-    height : 300px;
-    overflow : hidden;
-    overflow-y : scroll;
+#scroll-div {
+    background: var(--background-color);
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
-#scroll-obj{
-    color : black;
+#scroll-obj {
+    color: hsl(var(--text-hue), var(--text-saturation), var(--text-light));
+}
+
+.fa-regular,
+.fa-solid {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s ease 0s;
+}
+
+.fa-regular:hover,
+.fa-solid:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+    color: var(--link-color);
+}
+
+body {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.listing {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 5em;
+    background-color: var(--background-color);
+}
+
+.contents {
+    background-color: var(--foreground-color);
+    gap: 2em;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    padding: 10% 5%;
+}
+
+.flex-item {
+    width: 200px;
+}
+
+.img {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    border-radius: 5px;
+}
+
+/* Add a fixed position to the nav bar */
+.bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: var(--background-color);
+    border-bottom: 1px solid darkgray;
+}
+
+/* Add padding to the heading to prevent content from overlapping the nav bar */
+body {
+    padding-top: 50px;
+    /* Change the value to adjust the padding as needed */
+}
+
+.nav {
+    justify-content: space-evenly;
+}
+
+.nav-item a:is(:link, :visited, :active).active {
+    color: var(--link-color);
+}
+
+.listing:last-child {
+    padding-bottom: 5%;
+}
+
+.nav-item,
+.header {
+    padding: 10px 20px;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease 0s;
+    color: hsla(var(--text-hue), var(--text-saturation), var(--text-light), 0.5);
+}
+
+a:hover {
+    color: var(--link-color);
+}
+
+button {
+    padding: .5em;
+    background-color: var(--button-background-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: var(--button-color);
+}
+
+button:hover {
+    background-color: var(--hov-button-color);
+}
+
+.header,
+.icon,
+.tabs {
+    justify-content: center;
+}
+
+.header {
+    color: var(--link-color);
+}
+
+.cat-search {
+    padding: 10px 5px;
+}
+
+.category {
+    justify-content: center;
+}
+
+.cat-item {
+    margin: 10px 5px 30px;
+}
+
+.heading {
+    justify-content: center;
+}
+
+.cat-item.search,
+.form-select {
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.form-select {
+    color: hsla(0, 0%, 0%, .5);
+}
+
+.form-select:hover{
+    cursor: pointer;
+}
+
+.form-select:focus {
+    outline: none;
+    border: 1px solid gray;
+}
+
+.no-items {
+    border-top: 1px solid darkgray;
+    width: 100%;
+}
+
+.no-item {
+    padding: 10px 0;
+    color: red;
+}
+
+.price{
+    color: var(--button-background-color);
+}
+
+.description>.card-text.description{
+    --text-transparency: .5;
+}
+
+.listing-link{
+    text-decoration: none;
+    color: hsla(var(--text-hue), var(--text-saturation), var(--text-light), var(--text-transparency));
+}
+
+.card-title{
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.card-text{
+    text-align: center;
+}
+
+.container-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--foreground-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.create{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group{
+    margin: 10px 0;
+}
+
+.form-select{
+    height: 30px;
+    width: 30em;
+}
+
+.btns{
+    justify-content: center;
+}
+
+.btn.add{
+    width:20%;
+}
+
+form.btn{
+    padding: .5em;
+}
+
+.btn-warning{
+    background-color: orange;
+    transition: all 0.3s ease 0s;
+    color: whitesmoke;
+}
+
+.btn-danger{
+    background-color: red;
+    transition: all 0.3s ease 0s;
+    color: whitesmoke;
+}
+
+.btn-warning:hover{
+    background-color: rgba(255, 166, 0, 0.5);
+}
+
+.btn-danger:hover{
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.desc{
+    background-color: var(--background-color);
+    border-radius: 10px;
+}
+
+.label{
+    width: 100%;
+}
+
+.form-select-file{
+    background-color: gray;
+    transition: all 0.3s ease 0s;
+    color: black;
+    width: 30em;
+}
+
+.col{
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.row-1,
+.row-2 {
+    flex: 1;
+}
+
+@media (orientation:portrait) , (max-width: 600px) {
+    .wrap.row {
+        flex-direction: column;
+    }
 }

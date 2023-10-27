@@ -6,35 +6,23 @@ from .models import listing, bid, comment, Category, User
 
 class ListingForm(ModelForm):
     
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), widget = forms.Select(attrs={'class':'form-control'}))
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), widget = forms.Select(attrs={'class':'form-select'}))
 
     class Meta:
         model = listing
         fields = ('title', 'description', 'price', 'category', 'image', 'posted_user')
         widgets={
-            'title' : forms.TextInput(attrs={'class':'form-control'}),
-            'description' : forms.TextInput(attrs={'class':'form-control'}),
-            'price' : forms.NumberInput(attrs={'class':'form-control'}),
-            'image' : forms.FileInput(attrs={'class':'form-control-file'}),
+            'title' : forms.TextInput(attrs={'class':'form-select'}),
+            'description' : forms.TextInput(attrs={'class':'form-select'}),
+            'price' : forms.NumberInput(attrs={'class':'form-select'}),
+            'image' : forms.FileInput(attrs={'class':'form-select-file'}),
             'posted_user' : forms.HiddenInput()
-            }
-        labels={
-            'title' : 'Title',
-            'description': 'Description',
-            'price':'Price',
-            'category':'Category',
-            'image':'Add Image'
             }
 
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['posted_user'].required = False
 
-
-class CategoryForm(ModelForm):
-    class Meta:
-        model = Category
-        fields = "__all__"
 
 class BidsForm(ModelForm):
     class Meta:

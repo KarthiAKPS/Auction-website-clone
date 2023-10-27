@@ -1,19 +1,68 @@
-{% extends 'auctions/layout.html' %}
-
-{% block body %}
-
-{% if message %}
-<p class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">{{message}}</p>
+{% extends 'auctions/layout.html' %} {% block body %} {% if message %}
+<p class="msg">{{message}}</p>
 {% endif %}
 
-<form action="{% url 'edit' id %}" method="post" enctype="multipart/form-data">
+<div class="container-box">
+  <form
+    action="{% url 'edit' id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
     {% csrf_token %}
-    <label>Title</label><input type="text" name="title" value="{{title}}" required class=" form-control" />
-    <label>Description</label><input type="text" name="description" value="{{description}}" required class=" form-control" />
-    <label>Price</label><input type="number" name="price" value="{{price}}" required class=" form-control" />
-    <label>Category</label><select class=" form-control" name="category"><option selected>{{oc}}</option>{% for i in categories %} <option value="{{i}}">{{i}}</option>{% endfor %} </select>
-    <label>image</label><input type="file" name="image" value="{{image}}" class=" form-control-file" />
+    <div class="flex-container create">
+      <label>Title</label>
+      <div class="form-group">
+        <input
+          type="text"
+          name="title"
+          value="{{title}}"
+          required
+          class="form-select"
+        />
+      </div>
+      <label>Description</label>
+      <div class="form-group">
+        <input
+          type="text"
+          name="description"
+          value="{{description}}"
+          required
+          class="form-select"
+        />
+      </div>
+      <label>Price</label>
+      <div class="form-group">
+        <input
+          type="number"
+          name="price"
+          value="{{price}}"
+          required
+          class="form-select"
+        />
+      </div>
+      <label>Category</label>
+      <div class="form-group">
+        <select class="form-select" name="category">
+          <option selected>{{oc}}</option>
+          {% for i in categories %}
+          <option value="{{i}}">{{i}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <label>image</label>
+      <div class="form-group">
+        <input
+          type="file"
+          name="image"
+          value="{{image}}"
+          class="form-select-file"
+        />
+      </div>
 
-    <button type="submit" style="margin : 10px 0" class="btn btn-warning mb-3">Submit</button>
-</form>
+      <div class="form-group">
+        <button>Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
 {% endblock %}
