@@ -27,16 +27,16 @@
             <strong>Price: </strong>Rs.{{item.price}}
           </p>
 
-          <div class="flex-container btns">
-            <form action="{% url 'mypage' %}" method="post" class="btn">
+          <div class="flex-container">
+            <form action="{% url 'mypage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" value="{{item.id}}" name="obj_id" />
-              <button class="btn btn-warning">Edit</button>
+              <button class="btns btn-warning">Edit</button>
             </form>
-            <form action="{% url 'del' item.id %}" method="post" class="btn">
+            <form action="{% url 'del' item.id %}" method="post">
               {% csrf_token %}
               <input type="hidden" value="{{item.id}}" name="obj_id" />
-              <button class="btn btn-danger">Remove</button>
+              <button class="btns btn-danger">Remove</button>
             </form>
           </div>
         </div>

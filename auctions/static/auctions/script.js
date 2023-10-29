@@ -7,18 +7,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const activePage = window.location.pathname;
-    const navLinks = document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.href.includes(`${activePage}`)) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        if (link.href.endsWith(`${activePage}`)) {
             link.classList.add('active');
         }
-    });
+        else {
+            link.classList.remove('active');
+        }
 
-    // Add event listeners to buttons
+        // // Add event listener to prevent page reload
+        // link.addEventListener('click', (event) => {
+        //     event.preventDefault();
+        //     // Add code to handle link click
+        // });
+
+        // Add event listeners to buttons
     document.querySelector('#dark-button').addEventListener('click', enableDarkMode);
     document.querySelector('#light-button').addEventListener('click', disableDarkMode);
-}
-);
 
+    });
+    });
+
+    
 function enableDarkMode() {
     // Add 'dark' class to bground element
     document.getElementById('bground').classList.add('dark');

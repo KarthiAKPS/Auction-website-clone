@@ -6,7 +6,7 @@
     <h2 class="flex-container heading">Register</h2>
 
     {% if message %}
-        <div class="msg">{{ message }}</div>
+        <div class="alert alert-danger center">{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">
@@ -24,7 +24,7 @@
         <div class="form-group">
             <input class="form-select" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <button class="form-group">Register</button>
+        <button class="form-group btn">Register</button>
         </div>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>

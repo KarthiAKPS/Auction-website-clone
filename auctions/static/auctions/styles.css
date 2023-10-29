@@ -56,12 +56,12 @@ body {
 
 #scroll-bg {
     background: var(--background-color);
-    margin: 2% auto;
+    margin: 2%;
 }
 
 #scroll-div {
     background: var(--background-color);
-    height: 300px;
+    height: calc(100vh - 10em);
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -133,9 +133,10 @@ body {
     border-bottom: 1px solid darkgray;
 }
 
+
 /* Add padding to the heading to prevent content from overlapping the nav bar */
 body {
-    padding-top: 50px;
+    padding-top: 75px;
     /* Change the value to adjust the padding as needed */
 }
 
@@ -143,7 +144,7 @@ body {
     justify-content: space-evenly;
 }
 
-.nav-item a:is(:link, :visited, :active).active {
+.nav-item a:is(:link, :active).active {
     color: var(--link-color);
 }
 
@@ -168,16 +169,10 @@ a:hover {
 
 button {
     padding: .5em;
-    background-color: var(--button-background-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
-    color: var(--button-color);
-}
-
-button:hover {
-    background-color: var(--hov-button-color);
 }
 
 .header,
@@ -266,6 +261,7 @@ button:hover {
     background-color: var(--foreground-color);
     padding: 20px;
     border-radius: 10px;
+    min-width: 500px;
 }
 
 .create{
@@ -285,6 +281,8 @@ button:hover {
 
 .btns{
     justify-content: center;
+    align-items: center;
+    margin: 10px 10px;
 }
 
 .btn.add{
@@ -348,4 +346,156 @@ form.btn{
     .wrap.row {
         flex-direction: column;
     }
+}
+
+.col-1{
+    margin: 10px 10px;
+    justify-content: center;
+}
+
+.btn-success{
+    background-color: rgb(2, 185, 2);
+    transition: all 0.3s ease 0s;
+    color: whitesmoke;
+}
+.btn-success:hover{
+    background-color: rgb(19, 110, 19);
+}
+
+.btn{
+    background-color: var(--button-background-color);
+    color: var(--button-color);
+}
+
+.btn:hover{
+    background-color: var(--hov-button-color);
+}
+
+.comments{
+    list-style: none;
+}
+
+.comment{
+    margin: 1%;
+    padding:5%;
+    border: 1px solid darkgray;
+}
+
+.col.col-2.comm{
+    background-color: var(--foreground-color);
+}
+
+.center{
+    text-align: center;
+}
+
+.text-box{
+    width: 50%;
+    height: 3em;
+    margin: 0 auto;
+    border-radius: .35em;
+}
+
+.list-item{
+    padding-bottom: 3em;
+    border-bottom: 1px solid darkgray;
+}
+
+.alert{
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    border-radius: .3em;
+}
+
+.alert-success{
+    background-color: rgba(2, 185, 2, 0.5);
+    color: whitesmoke;
+}
+
+.alert-danger{
+    background-color: rgba(255, 0, 0, 0.5);
+    color: whitesmoke;
+}
+
+.alert-warning{
+    background-color: rgba(255, 166, 0, 0.5);
+    color: whitesmoke;
+}
+
+/* Media query for screens smaller than 768px */
+
+@media (max-width: 767px) {
+    .alert {
+        width: 90%;
+        padding: 10px;
+        font-size: 14px;
+        }
+    }
+
+
+/* Media query for screens between 768px and 1024px */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .alert {
+        width: 70%;
+    }
+}
+
+/* Media query for screens larger than 1024px */
+
+@media (min-width: 1025px) {
+    .alert {
+        width: 50%;
+    }
+}
+
+.row-1{
+    padding-bottom: 3em;
+    border-bottom: 1px solid darkgray;
+}
+
+.block{
+    display: block;
+}
+
+.inline{
+    display: inline;
+
+}
+
+.after::after{
+    content: "*";
+    display: block;
+    color: red;
+}
+
+.max-width{
+    width: 100%;
+}
+
+.bid-bar {
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    text-align: center;
+    color: hsla(0, 0%, 0%, .5);
+    width: 50px;
+    height: 30px;
+}
+
+.bid-bar:hover{
+    cursor: pointer;
+}
+
+.bid-bar:focus {
+    outline: none;
+    border: 1px solid gray;
+}
+
+.bid-button{
+    margin: 0 10px;
+}
+
+.cen{
+    align-items: center;
 }
