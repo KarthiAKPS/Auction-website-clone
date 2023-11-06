@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
+def user_directory_path(instance, filename):
+    return 'user_{0}/{1}'.format(instance.posted_user, filename)
 
 class User(AbstractUser):
     pass
@@ -15,10 +18,11 @@ class listing(models.Model):
     description = models.CharField(max_length=64)
     price = models.IntegerField()
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name="item_type")
-    image = models.ImageField(null=True, blank=True, upload_to='images/')
+    image = models.ImageField(null=True, blank=True, upload_to=user_directory_path, max_length=100)
     posted_user = models.ForeignKey(User, related_name="posted_item", on_delete=models.CASCADE, null=True)
     isActive = models.BooleanField(default=True)
     watchlist = models.ManyToManyField(User, null=True, related_name="Watch_items", blank=True)
+    publish = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title

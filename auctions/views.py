@@ -238,7 +238,9 @@ def edit(request, id):
 
 @login_required
 def delete(request, id):
-    listing.objects.filter(pk = id).delete()
+    item = listing.objects.filter(pk = id)
+    item.image.delete()
+    item.delete()
     return HttpResponseRedirect(reverse('mypage'))
 
 @login_required
