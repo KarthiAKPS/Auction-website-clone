@@ -5,6 +5,7 @@ Brotli==1.1.0
 dj-database-url==2.0.0
 Django==4.2.3
 django-database-url==1.0.3
+django-dotenv==1.4.2
 django-environ==0.11.2
 django-storages==1.14.2
 gunicorn==21.2.0
