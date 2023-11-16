@@ -151,18 +151,21 @@ body {
     padding-bottom: 5%;
 }
 
-.nav-item,
-.header {
-    padding: 10px 20px;
-}
-
 a {
     text-decoration: none;
+}
+
+.link {
+    color: var(--link-color);
 }
 
 a.nav-link{
     transition: all 0.3s ease 0s;
     color: hsla(var(--text-hue), var(--text-saturation), var(--text-light), 0.5);
+}
+
+.nav:last-child{
+    padding-right: 1em;
 }
 
 a.nav-link:hover {
@@ -203,6 +206,10 @@ input:focus{
 
 .header {
     color: var(--link-color);
+}
+
+h5.card-title,p.card-text.description,p.card-text.price {
+    margin: 0; 
 }
 
 .cat-search {
@@ -278,9 +285,7 @@ input:focus{
     top: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--foreground-color);
-    padding: 20px;
     border-radius: 10px;
-    min-width: 500px;
 }
 
 .create{
@@ -330,8 +335,7 @@ form.btn{
 .desc{
     background-color: var(--background-color);
     border-radius: 10px;
-    padding: 0 10px;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .buttns{
@@ -389,6 +393,10 @@ form.btn{
 .btn{
     background-color: var(--button-background-color);
     color: var(--button-color);
+}
+
+.form-group.btn{
+    width: 8em;
 }
 
 .btn:hover{
@@ -501,6 +509,17 @@ form.btn{
     color: var(--link-color);
 }
 
+.form-group{
+    width: 80%;
+    text-align: center;
+    height: 2em;
+}
+
+.form-select{
+    width: 80%;
+    height: 2em;
+}
+
 /* Media query for screens smaller than 768px */
 
 @media (max-width: 767px) {
@@ -510,6 +529,10 @@ form.btn{
         font-size: 14px;
         }
 
+        .bar{
+            font-size: 0.5em;
+        }
+
     .content {
         width: 90%;
         height: 33%;
@@ -517,14 +540,13 @@ form.btn{
 
     .contents{
         padding: 3% 1%;
-        height: 400px;
     }
 
     .flex-item.desc {
         width: 45%;
     }
 
-    .form-select{
+    .cat-item.form-select{
         width: 70%;
     }
 
@@ -540,6 +562,23 @@ form.btn{
         aspect-ratio: 1/1;
     }
 
+    .desc{
+        padding: 0 2px;
+    }
+
+    h5.card-title,p.card-text.description,p.card-text.price {
+        margin: .5em 0; 
+    }
+
+    .container-box{
+        padding: 5px;
+        width: 90%;
+    }
+
+    .nav-item,
+.header {
+    padding: 10px 5px;
+}
 
 }
 
@@ -548,6 +587,10 @@ form.btn{
 @media (min-width: 768px) and (max-width: 1024px) {
     .alert {
         width: 70%;
+    }
+
+    .bar{
+        font-size: 0.75em;
     }
 
     .img {
@@ -565,15 +608,31 @@ form.btn{
 
     .contents{
         padding: 5% 2%;
-        max-height: 400px;
+        gap: 1em;
     }
 
-    .form-select{
-        height: 30px;
+    .cat-item.form-select{
+        height: 5vh;
         width: 30%;
     }
 
-    
+    .desc{
+        padding: 0 5px;
+    }
+
+    h5.card-title,p.card-text.description,p.card-text.price {
+        margin: .75em 0; 
+    }
+
+    .container-box{
+        padding: 5px;
+        width: 75%;
+    }
+
+    .nav-item,
+.header {
+    padding: 10px 10px;
+}
 
 }
 
@@ -584,8 +643,8 @@ form.btn{
         width: 50%;
     }
 
-    .form-select{
-        height: 30px;
+    .cat-item.form-select{
+        height: 5vh;
         width: 30em;
     }
 
@@ -598,6 +657,24 @@ form.btn{
 
     .flex-item{
         width: 250px;
+    }
+
+    .desc{
+        padding: 0 10px;
+    }
+
+    h5.card-title,p.card-text.description,p.card-text.price {
+        margin: 1.5em 0; 
+    }
+
+    .container-box{
+        padding: 20px;
+        min-width: 500px;
+    }
+
+    .nav-item,
+    .header {
+        padding: 10px 20px;
     }
 
 }
@@ -615,20 +692,19 @@ form.btn{
 
     .bar {
         bottom: 0;
-        height: 8em;
     }
 
     .flex-item.desc {
         width: 45%;
     }
 
-    .form-select{
+    .cat-item.form-select{
         width: 50%;
-        height: 30px;
+        height: 5vh;
     }
 
     .cat-item.search{
-        width: 10%;
+        width: 100px;
     }
 
     .content{
@@ -636,7 +712,9 @@ form.btn{
     }
 
     .contents{
-        height: 400px;
+        aspect-ratio: 2/1;
+        /*height: 30vh;*/
+        gap: 0.75em;
     }
 
     #scroll-div{
@@ -644,7 +722,17 @@ form.btn{
     }
 
     body{
-        padding-bottom: 75px;
+        padding-bottom: 4em;
+    }
+
+    h5.card-title,p.card-text.description,p.card-text.price {
+        margin: .5em 0; 
+    }
+
+    .container-box{
+        padding: 5px;
+        width: 90%;
+        max-width: 1000px;
     }
 
 }
@@ -655,7 +743,7 @@ form.btn{
 
     /* Add padding to the heading to prevent content from overlapping the nav bar */
     body {
-        padding-top: 75px; /* Change the value to adjust the padding as needed */
+        padding-top: 3em; /* Change the value to adjust the padding as needed */
         }
 
     .bar {
