@@ -27,7 +27,7 @@
             <strong>Price: </strong>Rs.{{item.price}}
           </p>
 
-          <div class="flex-container">
+          <div class="flex-container buttns">
             <form action="{% url 'mypage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" value="{{item.id}}" name="obj_id" />
