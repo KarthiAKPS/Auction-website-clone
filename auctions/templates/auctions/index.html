@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %} {% block body %}
-<h2 class="flex-container heading">Active Listings</h2>
+<h2 class="f1 flex-container heading">Active Listings</h2>
 
-<div class="item-select cat-search">
+<div class="f2 item-select cat-search">
   <form return="{% url 'index'%}" method="post">
     {% csrf_token %}
     <div class="flex-container category">
@@ -36,9 +36,9 @@
         {% endif %}
 
         <div class="flex-item desc">
-          <h5 class="card-title">{{item.title}}</h5>
-          <p class="card-text description">{{item.description}}</p>
-          <p class="card-text price"><strong>Price: </strong>Rs.{{item.price}}</p>
+          <h5 class="f1 card-title">{{item.title}}</h5>
+          <p class="f2 card-text description">{{item.description}}</p>
+          <p class="f2 card-text price">Price:<strong class="f1"> Rs.{{item.price}}</strong></p>
         </div>
       </div>
     </a>
@@ -46,7 +46,7 @@
 
   {% empty %}
   <div class="flex-container heading no-items">
-    <h4 class="no-item">No items</h4>
+    <h4 class="f2 no-item">No items</h4>
   </div>
   {% endfor %}
 </div>

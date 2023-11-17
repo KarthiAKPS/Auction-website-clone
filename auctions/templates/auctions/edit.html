@@ -1,5 +1,5 @@
 {% extends 'auctions/layout.html' %} {% block body %} {% if message %}
-<p class="alert alert-danger center">{{message}}</p>
+<p class="f2 alert alert-danger center">{{message}}</p>
 {% endif %}
 
 <div class="container-box">
@@ -9,7 +9,7 @@
     enctype="multipart/form-data"
   >
     {% csrf_token %}
-    <div class="flex-container create">
+    <div class="f2 flex-container create">
       <label>Title</label>
       <div class="form-group">
         <input

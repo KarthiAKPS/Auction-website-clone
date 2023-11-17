@@ -1,7 +1,7 @@
 {% extends 'auctions/layout.html' %}
 
 {% block body %}
-<div class="flex-container wrap row">
+<div class="f2 flex-container wrap row">
   <div class="flex-container col row-1">
     {% if user.is_authenticated and listings.isActive %}
     <div class="flex-container row col-1">
@@ -36,35 +36,35 @@
       </div>
     {% endif %}
     <div class="flex-container col desc">
-      <h5 class="card-title">{{listings.title}}</h5>
-      <p class="card-text description">{{listings.description}}</p>
-      <p class="card-text">
-        Original Price: <strong class="price">Rs.{{listings.price}}</strong>
+      <h5 class="f1 card-title">{{listings.title}}</h5>
+      <p class="f2 card-text description">{{listings.description}}</p>
+      <p class="f2 card-text">
+        Original Price: <strong class="f1 price">Rs.{{listings.price}}</strong>
       </p>
-      <p class="card-text description">Posted by: {{listings.posted_user}}</p>
+      <p class="f2 card-text description">Posted by: {{listings.posted_user}}</p>
     </div>
 
     {% if listings.isActive == False and u == by %}
-      <p class="flex-container col winning-alert">
+      <p class="f2 flex-container col winning-alert">
         <strong>Congratulations!! You won the auction for Rs.{{cur}}</strong>
       </p>
     {% else %}
       {% if listings.isActive %}
         <div class="flex-container col col-4">
-          <p class="card-text">
-            Current Bid is <strong class="price">Rs.{{cur}}</strong> by 
-            {% if u == by %}<strong>you</strong>{% else %}<strong>{{by}}</strong>{% endif %}
+          <p class="f2 card-text">
+            Current Bid is <strong class="f1 price">Rs.{{cur}}</strong> by 
+            {% if u == by %}<strong class="f1">you</strong>{% else %}<strong class='f1'>{{by}}</strong>{% endif %}
           </p>
-          <div class="form-group">
+          <div class="m-auto form-group">
             {% if pass %}
               {% if message %}
-                <div class="flex-container col">
+                <div class="f2 flex-container col">
                   <div class="alert alert-success center" role="alert">{{message}}</div>
                 </div>
               {% endif %}
             {% else %}
               {% if message %}
-                <div class="flex-container col">
+                <div class="f2 flex-container col">
                   <div class="alert alert-danger center" role="alert">{{message}}</div>
                 </div>
               {% endif %}
@@ -73,22 +73,22 @@
           {% if user.is_authenticated %}
             {% if u != owner and listings.isActive and u != by %}
               <form action="{% url 'bid' listings.id %}" method="post">
-                {% csrf_token %} <div class="flex-container row col-1 cen">
-                  <div class="form-group">{{ form.as_p }}</div>
-                  <div class="bid-button"><button class="btn-success" >Bid</button></div>
+                {% csrf_token %} <div class="f2 flex-container row col-1 cen">
+                  <div class="form-group">{{ form }}
+                  <button class="btn-success bid-button" >Bid</button></div>
                 </div>
               </form>
             {% endif %}
             {% if u != owner and listings.isActive and u == by %}
               <form method="post" action="{% url 'removebid' listings.id %}">
                 {% csrf_token %}
-                <div class="flex-container row col-1"><button class="btn-danger" >Remove Bid</button></div>
+                <div class="f2 flex-container row col-1"><button class="btn-danger" >Remove Bid</button></div>
               </form>
             {% endif %}
           {% endif %}
         </div>
       {% else %}
-          <p class="alert alert-warning center">Sold to <strong>{{by}}</strong> for <strong>Rs.{{cur}}</strong></p>
+          <p class="f2 alert alert-warning center">Sold to <strong class="f1">{{by}}</strong> for <strong class="f1">Rs.{{cur}}</strong></p>
       {% endif %}
     {% endif %}
   </div>
@@ -96,11 +96,11 @@
   <div class="flex-container col row-2">
     {% if user.is_authenticated %}
       <div class="flex-container col col-1">
-        <form class="input-group" action="{% url 'com' listings.id %}" method="post">
+        <form class="center p-top input-group" action="{% url 'com' listings.id %}" method="post">
           {% csrf_token %}
           <textarea class="form-group text-box" aria-label="Comment:" name="comment" placeholder="leave a comment here"></textarea>
-          <div class="form-group">
-            <button class='btn'>Submit</button>
+          <div class="m-auto form-group">
+            <button class='f2 btn'>Submit</button>
           </div>
         </form>
       </div>
@@ -109,15 +109,15 @@
       <div id="scroll-bg">
         <div id="scroll-div">
           <div id="scroll-obj">
-            <h4 class="heading center">Comments</h4>
+            <h4 class="f1 border-bottom p-bottom heading center">Comments</h4>
             <ul class="comments">
               {% for comm in comms %}
-                <li class="comment">
+                <li class="f2 comment">
                   {{comm}}
                 </li>
               {% empty %}
                 <div class="flex-container heading no-items">
-                  <h4 class="no-item">No comments</h4>
+                  <h4 class="f2 no-item">No comments</h4>
                 </div>
               {% endfor %}
             </ul>

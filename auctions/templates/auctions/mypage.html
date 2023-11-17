@@ -1,5 +1,5 @@
 {% extends 'auctions/layout.html' %} {% block body %}
-<h2 class="flex-container heading">My Items</h2>
+<h2 class="f1 flex-container heading">My Items</h2>
 
 <div class="flex-container listing">
   {% for item in items %}
@@ -21,13 +21,13 @@
         {% endif %}
 
         <div class="flex-item desc">
-          <h5 class="card-title">{{item.title}}</h5>
-          <p class="card-text description">{{item.description}}</p>
-          <p class="card-text price">
-            <strong>Price: </strong>Rs.{{item.price}}
+          <h5 class="f1 card-title">{{item.title}}</h5>
+          <p class="f2 card-text description">{{item.description}}</p>
+          <p class="f1 card-text price">
+            <strong class="f2">Price: </strong>Rs.{{item.price}}
           </p>
 
-          <div class="flex-container buttns">
+          <div class="f2 flex-container buttns">
             <form action="{% url 'mypage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" value="{{item.id}}" name="obj_id" />
@@ -44,7 +44,7 @@
     </a>
   </div>
   {% empty %}
-  <div class="flex-container heading no-items">
+  <div class="f2 flex-container heading no-items">
     <h4 class="no-item">No items</h4>
   </div>
   {% endfor %}

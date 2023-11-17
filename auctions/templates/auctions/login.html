@@ -2,15 +2,15 @@
 
 {% block body %}
 <div class="container-box">
-    <h2 class="flex-container heading">Login</h2>
+    <h2 class="f1 flex-container heading">Login</h2>
 
     {% if message %}
-        <div class="alert alert-danger center">{{ message }}</div>
+        <div class="f2 alert alert-danger center">{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <div class="flex-container create">
+        <div class="f2 flex-container create">
         <div class="form-group">
             <input autofocus class="form-select" type="text" name="username" placeholder="Username">
         </div>
@@ -21,7 +21,7 @@
         </div>
     </form>
 
-    Don't have an account? <a class="link" href="{% url 'register' %}">Register here.</a>
+    Don't have an account? <a class="f2 link" href="{% url 'register' %}">Register here.</a>
 </div>
 
 {% endblock %}

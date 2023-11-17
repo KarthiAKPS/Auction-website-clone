@@ -1,21 +1,21 @@
 {% extends 'auctions/layout.html' %} {% block body %} {% if message %}
-<p class="alert-danger">{{message}}</p>
+<p class="f2 alert-danger">{{message}}</p>
 {% endif %}
 
 <form action="{% url 'new' %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="container-box">
-    <div class="flex-container create">
+    <div class="f2 flex-container create">
       {% for field in form %} {% if field.label != 'Posted user' %}
       {% if field.label != 'Image' %}
       <div class='max-width center'><label class="after" for="{{field.id_for_label}}">{{field.label}}</label></div>
       <div class="form-group">{{field}} </div>
       {% else %}
-      <div class="max-width center"><label for="{{field.id_for_label}}">{{field.label}}</label></div>
+      <div class="center"><label for="{{field.id_for_label}}">{{field.label}}</label></div>
       <div class="form-group">{{field}} </div>{% endif %}
       {% endif %}
       {% endfor %}
-      <div class="form-group">
+      <div class="f2 form-group">
         <button class="btn">Add</button>
       </div>
     </div>
